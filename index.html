@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Resolução de Problemas Estruturados em Computação</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #07111f, #0d1f36, #132b4a);
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            padding: 24px;
+        }
+
+        .background-grid {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: 0;
+        }
+
+        .container {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 1200px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+            align-items: center;
+        }
+
+        .content {
+            animation: fadeIn 1s ease;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(0, 191, 255, 0.15);
+            border: 1px solid rgba(0, 191, 255, 0.4);
+            color: #7ed8ff;
+            padding: 8px 14px;
+            border-radius: 999px;
+            font-size: 0.9rem;
+            margin-bottom: 18px;
+        }
+
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.5rem, 3.5vw, 2.8rem);
+            line-height: 1.2;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-shadow: 0 0 18px rgba(89, 215, 255, 0.35);
+        }
+
+        p {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: #d4dbe7;
+            max-width: 620px;
+        }
+
+        .highlight {
+            color: #59d7ff;
+            font-weight: bold;
+        }
+
+        .mascot-name {
+            margin-top: 20px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #7ed8ff;
+            letter-spacing: 1px;
+        }
+
+        .mascot-name span {
+            font-family: 'Orbitron', sans-serif;
+            color: white;
+        }
+
+        .mascot-area {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .energy-ring {
+            position: absolute;
+            width: 340px;
+            height: 340px;
+            border-radius: 50%;
+            border: 2px solid rgba(89, 215, 255, 0.2);
+            animation: pulse 4s infinite ease-in-out;
+            filter: blur(1px);
+        }
+
+        .energy-ring::before,
+        .energy-ring::after {
+            content: "";
+            position: absolute;
+            inset: 20px;
+            border-radius: 50%;
+            border: 1px solid rgba(89, 215, 255, 0.2);
+        }
+
+        .mascot {
+            width: min(100%, 420px);
+            position: relative;
+            z-index: 2;
+            animation: floating 4s ease-in-out infinite;
+            filter: drop-shadow(0 0 30px rgba(0, 212, 255, 0.25));
+        }
+
+        .orb {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #8be7ff 0%, #4dc8ff 35%, rgba(0, 212, 255, 0) 75%);
+            left: 5%;
+            top: 42%;
+            filter: blur(4px);
+            opacity: 0.8;
+            animation: orbPulse 3s infinite ease-in-out;
+        }
+
+        .card {
+            margin-top: 28px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 20px;
+            border-radius: 18px;
+            backdrop-filter: blur(8px);
+        }
+
+        .card h2 {
+            margin-bottom: 12px;
+            font-size: 1.2rem;
+            color: #7ed8ff;
+        }
+
+        .card p {
+            font-size: 0.98rem;
+            color: #c7d3e3;
+            line-height: 1.7;
+        }
+
+        @keyframes floating {
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-18px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+
+            50% {
+                transform: scale(1.08);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+        }
+
+        @keyframes orbPulse {
+            0% {
+                transform: scale(0.9);
+                opacity: 0.5;
+            }
+
+            50% {
+                transform: scale(1.1);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(0.9);
+                opacity: 0.5;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding-top: 60px;
+                padding-bottom: 60px;
+            }
+
+            .container {
+                text-align: center;
+            }
+
+            p {
+                margin: 0 auto;
+            }
+
+            .orb {
+                width: 90px;
+                height: 90px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="background-grid"></div>
+
+    <main class="container">
+
+        <section class="content">
+            <div class="badge">Mascote Oficial da Disciplina</div>
+
+            <h1>
+                Resolução de Problemas
+                <span class="highlight">Estruturados em Computação</span>
+            </h1>
+
+            <p>
+                Este mascote representa lógica, análise computacional e resolução estruturada de problemas.
+                Seu design futurista simboliza inteligência, abstração, processamento de dados e pensamento algorítmico,
+                elementos essenciais para o desenvolvimento de soluções eficientes na computação.
+            </p>
+
+            <div class="mascot-name">
+                Nome do Mascote: <span>Linus</span>
+            </div>
+
+            <div class="card">
+                <h2>Objetivo da Disciplina</h2>
+                <p>
+                    Desenvolver raciocínio lógico, decomposição de problemas, modelagem de soluções e construção de
+                    algoritmos,
+                    preparando os estudantes para desafios reais no desenvolvimento de software e sistemas
+                    computacionais.
+                </p>
+            </div>
+        </section>
+
+        <section class="mascot-area">
+            <div class="energy-ring"></div>
+            <div class="orb"></div>
+            <img src="./img/mass_gray.jpg" alt="Mascote da disciplina" class="mascot" />
+        </section>
+
+    </main>
+
+</body>
+
+</html>
+
